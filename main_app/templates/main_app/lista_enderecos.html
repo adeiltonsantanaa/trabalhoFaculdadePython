@@ -1,0 +1,59 @@
+  <h1>Lista de Endereços</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>URL</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for endereco in enderecos %}
+        <tr>
+          <td>{{ endereco.pk }}</td>
+          <td>{{ endereco.url }}</td>
+          <td>
+            <form action="{% url 'alterar_url' endereco.pk %}" method="get">
+              <button type="submit" class="btn-editar">Editar</button>
+            </form>
+            <form action="{% url 'excluir_endereco' endereco.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn-excluir">Excluir</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
+  <a href="{% url 'home' %}" class="btn-voltar">Voltar</a>
+
+<style>
+  .btn-editar {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .btn-excluir {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+
+  .btn-voltar {
+    background-color: #28a745;
+    color: #fff;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 3px;
+    cursor: pointer;
+  }
+</style>

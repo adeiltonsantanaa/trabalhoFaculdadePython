@@ -1,0 +1,6 @@
+<h2>Cadastro de Endereços Web</h2>
+<form method="POST">
+  {% csrf_token %}
+  <input type="url" name="url" required>
+  <button type="submit">Incluir</button>
+</form>

@@ -1,0 +1,7 @@
+<h2>Excluir Endereço Web</h2>
+<p>Tem certeza que deseja excluir o seguinte endereço?</p>
+<p>{{ endereco.url }}</p>
+<form method="POST">
+  {% csrf_token %}
+  <button type="submit">Excluir</button>
+</form>
