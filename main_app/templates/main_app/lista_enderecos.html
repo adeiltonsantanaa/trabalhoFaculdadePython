@@ -1,59 +1,94 @@
-  <h1>Lista de Endereços</h1>
-
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>URL</th>
-        <th>Ações</th>
-      </tr>
-    </thead>
-    <tbody>
-      {% for endereco in enderecos %}
-        <tr>
-          <td>{{ endereco.pk }}</td>
-          <td>{{ endereco.url }}</td>
-          <td>
-            <form action="{% url 'alterar_url' endereco.pk %}" method="get">
-              <button type="submit" class="btn-editar">Editar</button>
-            </form>
-            <form action="{% url 'excluir_endereco' endereco.pk %}" method="post">
-              {% csrf_token %}
-              <button type="submit" class="btn-excluir">Excluir</button>
-            </form>
-          </td>
-        </tr>
-      {% endfor %}
-    </tbody>
-  </table>
-
-  <a href="{% url 'home' %}" class="btn-voltar">Voltar</a>
-
 <style>
-  .btn-editar {
+  body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f5f5f5;
+  }
+
+  h1 {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  table {
+    width: 100%;
+    background-color: #fff;
+    border-collapse: collapse;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  th,
+  td {
+    padding: 10px;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .btn-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .btn-editar,
+  .btn-excluir {
     background-color: #007bff;
     color: #fff;
     border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
+    padding: 8px 16px;
+    border-radius: 4px;
     cursor: pointer;
+    margin-right: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
   }
 
   .btn-excluir {
     background-color: #dc3545;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
   }
 
   .btn-voltar {
     background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 3px;
-    cursor: pointer;
+  }
+
+  .btn-editar:hover,
+  .btn-excluir:hover,
+  .btn-voltar:hover {
+    background-color: #0056b3;
   }
 </style>
+
+<h1>Lista de Endereços</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>URL</th>
+      <th>Ações</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for endereco in enderecos %}
+      <tr>
+        <td>{{ endereco.pk }}</td>
+        <td>{{ endereco.url }}</td>
+        <td>
+          <div class="btn-container">
+            <a href="{% url 'alterar_url' endereco.pk %}" class="btn-editar">Editar</a>
+            <form action="{% url 'excluir_endereco' endereco.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn-excluir">Excluir</button>
+            </form>
+          </div>
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<a href="{% url 'home' %}" class="btn-voltar">Voltar</a>
