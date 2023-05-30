@@ -32,4 +32,4 @@ def alterar_url(request, pk):
             return redirect('lista_enderecos')
     else:
         form = URLForm(instance=endereco)
-    return render(request, 'main_app/alterar_url.html', {'form': form})
+    return render(request, 'main_app/alterar_url.html', {'form': form, 'pk': pk})
