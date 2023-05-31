@@ -1,9 +1,35 @@
 <style>
+ 
+  body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+  }
+
   .container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
+  }
+
+  .welcome {
+    position: absolute;
+    background-color: #f4f4f4;
+    padding: 20px;
+  }
+
+  #botao {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    display: block;
+    margin: 0 auto;
   }
 
   .form-container {
@@ -38,9 +64,32 @@
     text-decoration: none;
     color: #000;
   }
+
+  #botao:hover {
+    background-color: #0056b3;
+  }
 </style>
 
 <div class="container">
+  {% load static %}
+  <div class="welcome">
+    <h2>Trabalho AV2</h2>
+    <h3>Funcionalidades:</h3>
+    <ol>
+      <li>manutenção de endereço web (URL)</li>
+      <li>verificação automática da situação do endereço web</li>
+      <li>tela de boas-vindas ao ligar a aplicação</li>
+      <li>Desafios extras:</li>
+      <ol>
+        <li>manter histórico de validações executadas para cada URL</li>
+        <li>importar URLs de arquivo no texto no qual tem uma URL por linha</li>
+        <li>armazenar detalhes da validação</li>
+        <li>informações sobre o domínio da URL</li>
+      </ol>
+    </ol>
+    <button id="botao">Acessar</button> 
+  </div>
+  
   <div class="form-container">
     <h2>Cadastro de Endereços Web</h2>
     <form method="POST">
@@ -51,4 +100,5 @@
 
     <a href="{% url 'lista_enderecos' %}">Ver Lista de URLs</a>
   </div>
+  <script src="{% static 'javascript/home.js' %}"></script>
 </div>
