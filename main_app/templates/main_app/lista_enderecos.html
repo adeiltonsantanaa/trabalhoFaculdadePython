@@ -7,6 +7,7 @@
     height: 100vh;
     font-family: Arial, sans-serif;
     background-color: #f5f5f5;
+    margin: 0;
   }
 
   h1 {
@@ -32,10 +33,13 @@
   .btn-container {
     display: flex;
     justify-content: center;
+    box-sizing: content-box;
   }
-
+  
   .btn-editar,
-  .btn-excluir {
+  .btn-excluir,
+  .btn-voltar,
+  .btn-validar {
     background-color: #007bff;
     color: #fff;
     border: none;
@@ -47,8 +51,18 @@
     transition: background-color 0.3s;
   }
 
+  button {
+    font-weight: 400;
+    font-size: 16px;
+  }
+
+  form {
+    margin: 0;
+  }
+
   .btn-excluir {
     background-color: #dc3545;
+    margin: 0;
   }
 
   .btn-voltar {
@@ -70,22 +84,26 @@
       <th>ID</th>
       <th>URL</th>
       <th>Ações</th>
+      <th>Status</th>
     </tr>
   </thead>
   <tbody>
     {% for endereco in enderecos %}
+    
       <tr>
         <td>{{ endereco.pk }}</td>
         <td>{{ endereco.url }}</td>
         <td>
           <div class="btn-container">
             <a href="{% url 'alterar_url' endereco.pk %}" class="btn-editar">Editar</a>
+            <button class="btn-validar">Validar</button>
             <form action="{% url 'excluir_endereco' endereco.pk %}" method="post">
               {% csrf_token %}
               <button type="submit" class="btn-excluir">Excluir</button>
-            </form>
+            </form>            
           </div>
         </td>
+        <td></td>
       </tr>
     {% endfor %}
   </tbody>
