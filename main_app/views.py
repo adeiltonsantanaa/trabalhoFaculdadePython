@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from .forms import URLForm
 from .models import EnderecoWeb
+import requests
 
 def home(request):
     if request.method == 'POST':
@@ -33,3 +34,21 @@ def alterar_url(request, pk):
     else:
         form = URLForm(instance=endereco)
     return render(request, 'main_app/alterar_url.html', {'form': form, 'pk': pk})
+
+def verificar_url(request, pk):
+    if request.method == 'POST':
+        url = get_object_or_404(EnderecoWeb, pk=pk)
+
+        try:
+            response = requests.get(url)
+            
+            if response.status_code == 200:
+                status = '🟢'
+
+            else:
+                status = '🔴'
+
+        except requests.exceptions.RequestException:
+            status = 'Erro de conexão'
+        print(status)
+        return redirect('lista_enderecos')
