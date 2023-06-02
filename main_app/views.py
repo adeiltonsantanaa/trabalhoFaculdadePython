@@ -51,3 +51,22 @@ def verificar_url(request, pk):
         endereco.save()
 
         return redirect('lista_enderecos')
+    
+def verificar_urls(request):
+    enderecos = EnderecoWeb.objects.all()
+    if request.method == 'GET':
+        for endereco in enderecos:
+            try:
+                response = requests.get(endereco.url)
+                if response.status_code == 200:
+                    validacao = '🟢'
+                else:
+                    validacao = '🔴'
+            except requests.exceptions.RequestException as err:
+                validacao = '🔴'
+
+            endereco.validacao = validacao
+            endereco.save()
+
+    return redirect('lista_enderecos')
+        
