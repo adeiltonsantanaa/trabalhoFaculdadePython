@@ -60,6 +60,11 @@
     margin: 0;
   }
 
+  .btn-validar {
+    background-color: #1F1F1F;
+  }
+
+
   .btn-excluir {
     background-color: #dc3545;
     margin: 0;
@@ -96,14 +101,17 @@
         <td>
           <div class="btn-container">
             <a href="{% url 'alterar_url' endereco.pk %}" class="btn-editar">Editar</a>
-            <button class="btn-validar">Validar</button>
+            <form action="{% url 'verificar_url' endereco.pk %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn-validar">Validar</button>
+            </form>
             <form action="{% url 'excluir_endereco' endereco.pk %}" method="post">
               {% csrf_token %}
               <button type="submit" class="btn-excluir">Excluir</button>
             </form>            
           </div>
         </td>
-        <td></td>
+        <td>Status?</td>
       </tr>
     {% endfor %}
   </tbody>
