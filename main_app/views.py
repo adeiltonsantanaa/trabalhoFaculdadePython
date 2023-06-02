@@ -37,18 +37,17 @@ def alterar_url(request, pk):
 
 def verificar_url(request, pk):
     if request.method == 'POST':
-        url = get_object_or_404(EnderecoWeb, pk=pk)
-
+        endereco = get_object_or_404(EnderecoWeb, pk=pk)
         try:
-            response = requests.get(url)
-            
+            response = requests.get(endereco.url)
             if response.status_code == 200:
-                status = '🟢'
-
+                validacao = '🟢'
             else:
-                status = '🔴'
+                validacao = '🔴'
+        except requests.exceptions.RequestException as err:
+            validacao = '🔴'
 
-        except requests.exceptions.RequestException:
-            status = 'Erro de conexão'
-        print(status)
+        endereco.validacao = validacao
+        endereco.save()
+
         return redirect('lista_enderecos')
